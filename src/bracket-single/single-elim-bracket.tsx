@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { sortAlphanumerically } from 'Utils/string';
-import { calculateSVGDimensions } from 'Core/calculate-svg-dimensions';
+import {
+  calculateSVGDimensions,
+  sumRank as sunRanks,
+} from 'Core/calculate-svg-dimensions';
 import { MatchContextProvider } from 'Core/match-context';
 import MatchWrapper from 'Core/match-wrapper';
 import RoundHeader from 'Components/round-header';
@@ -59,9 +62,9 @@ const SingleEliminationBracket = ({
     return [previousMatchesColumn];
   };
   const generate2DBracketArray = final => {
-    return final
-      ? [...generateColumn([final]), [final]].filter(arr => arr.length > 0)
-      : [];
+    if (!final) return [];
+
+    return [...generateColumn([final]), [final]].filter(arr => arr.length > 0);
   };
   const columns = generate2DBracketArray(lastGame);
   // [
@@ -70,9 +73,17 @@ const SingleEliminationBracket = ({
   //   [ 3rd column ]
   //   [ lastGame ]
   // ]
+  const maxHeight = Math.max(
+    ...columns.map((row, index) => 2 ** index * row.length)
+  );
+
+  const maxWidth = columns.length;
+
+  const sumRank = sunRanks(columns);
+
   const { gameWidth, gameHeight, startPosition } = calculateSVGDimensions(
-    2 ** (columns.length - 1),
-    columns.length,
+    maxHeight,
+    maxWidth,
     rowHeight,
     columnWidth,
     canvasPadding,
@@ -114,7 +125,8 @@ const SingleEliminationBracket = ({
                       previousBottomPosition
                     );
                   return (
-                    <>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Fragment key={`${match.id}-${columnIndex}-${rowIndex}`}>
                       {roundHeader.isShown && (
                         <RoundHeader
                           x={x}
@@ -162,9 +174,11 @@ const SingleEliminationBracket = ({
                           onPartyClick={onPartyClick}
                           style={style}
                           matchComponent={matchComponent}
+                          matchesColumn={matchesColumn.length}
+                          sumRank={sumRank}
                         />
                       </g>
-                    </>
+                    </Fragment>
                   );
                 })
               )}

@@ -23,3 +23,13 @@ export function calculateSVGDimensions(
   ];
   return { gameWidth, gameHeight, startPosition };
 }
+
+export function sumRank(columns: any[]) {
+  const arrLength = columns.map(row => row.length);
+  arrLength.forEach((e, index) => {
+    if (index !== 0) {
+      arrLength[index] = e + arrLength[index - 1];
+    }
+  });
+  return arrLength;
+}

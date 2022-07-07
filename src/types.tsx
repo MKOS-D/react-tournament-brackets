@@ -20,9 +20,9 @@ export type Match = {
 
   name?: string;
 
-  nextMatchId: number | null;
+  nextMatchId: string | number | null;
 
-  nextLooserMatchId?: number;
+  nextLooserMatchId?: string | number;
 
   tournamentRoundText: string;
 
@@ -133,6 +133,14 @@ export type MatchComponentProps = {
 
   teamNameFallback: string;
 
+  columnIndex: number;
+
+  rowIndex: number;
+
+  matchesColumn: number | null;
+
+  sumRank: number[] | null;
+
   resultFallback: (participant: Participant) => string;
 };
 export type Theme = {
@@ -181,6 +189,7 @@ export type BracketLeaderboardProps = {
     bracketHeight: number;
     startAt: number[];
     children: ReactElement;
+    isMiniature?: boolean;
   }) => React.ReactElement;
 
   currentRound?: string;
