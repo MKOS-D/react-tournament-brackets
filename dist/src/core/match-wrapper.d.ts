@@ -1,4 +1,4 @@
-declare function Match({ rowIndex, columnIndex, match, previousBottomMatch, teams, topText, bottomText, style, matchComponent: MatchComponent, onMatchClick, onPartyClick, ...rest }: {
+declare function Match({ rowIndex, columnIndex, match, previousBottomMatch, teams, topText, bottomText, style, matchComponent: MatchComponent, onMatchClick, onPartyClick, matchesColumn, sumRank, ...rest }: {
     [x: string]: any;
     rowIndex: any;
     columnIndex: any;
@@ -36,5 +36,7 @@ declare function Match({ rowIndex, columnIndex, match, previousBottomMatch, team
     matchComponent: any;
     onMatchClick: any;
     onPartyClick: any;
+    matchesColumn?: any;
+    sumRank?: any;
 }): JSX.Element;
 export default Match;

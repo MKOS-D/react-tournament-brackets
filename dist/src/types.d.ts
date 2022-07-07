@@ -10,8 +10,8 @@ export declare type Participant = {
 export declare type Match = {
     id: number | string;
     name?: string;
-    nextMatchId: number | null;
-    nextLooserMatchId?: number;
+    nextMatchId: string | number | null;
+    nextLooserMatchId?: string | number;
     tournamentRoundText: string;
     startTime: string;
     state: 'PLAYED' | 'NO_SHOW' | 'WALK_OVER' | 'NO_PARTY' | string;
@@ -78,6 +78,10 @@ export declare type MatchComponentProps = {
     connectorColor?: string;
     computedStyles?: ComputedOptions;
     teamNameFallback: string;
+    columnIndex: number;
+    rowIndex: number;
+    matchesColumn: number | null;
+    sumRank: number[] | null;
     resultFallback: (participant: Participant) => string;
 };
 export declare type Theme = {
@@ -117,6 +121,7 @@ export declare type BracketLeaderboardProps = {
         bracketHeight: number;
         startAt: number[];
         children: ReactElement;
+        isMiniature?: boolean;
     }) => React.ReactElement;
     currentRound?: string;
     onMatchClick?: (args: {

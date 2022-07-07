@@ -3,3 +3,4 @@ export declare function calculateSVGDimensions(numOfRows: any, numOfColumns: any
     gameHeight: any;
     startPosition: number[];
 };
+export declare function sumRank(columns: any[]): any[];
