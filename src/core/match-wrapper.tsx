@@ -17,6 +17,8 @@ function Match({
   matchComponent: MatchComponent,
   onMatchClick,
   onPartyClick,
+  matchesColumn = null,
+  sumRank = null,
   ...rest
 }) {
   const {
@@ -130,6 +132,10 @@ function Match({
               bottomText,
               connectorColor,
               computedStyles,
+              columnIndex,
+              rowIndex,
+              matchesColumn,
+              sumRank,
             }}
           />
         )}
