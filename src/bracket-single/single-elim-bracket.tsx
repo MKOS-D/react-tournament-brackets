@@ -44,7 +44,11 @@ const SingleEliminationBracket = ({
   const { roundHeader, columnWidth, canvasPadding, rowHeight, width } =
     getCalculatedStyles(style);
 
-  const lastGame = matches.find(match => !match.nextMatchId);
+  const lastGame = matches.find(
+    match => !match.nextMatchId && !match.is3rdGame
+  );
+
+  const is3rdGame = matches.find(match => match.is3rdGame);
 
   const generateColumn = matchesColumn => {
     const previousMatchesColumn = matchesColumn.reduce((result, match) => {
@@ -64,7 +68,15 @@ const SingleEliminationBracket = ({
   const generate2DBracketArray = final => {
     if (!final) return [];
 
-    return [...generateColumn([final]), [final]].filter(arr => arr.length > 0);
+    const finalRound = [final];
+
+    if (is3rdGame) {
+      finalRound.push(is3rdGame);
+    }
+
+    return [...generateColumn([final]), finalRound].filter(
+      arr => arr.length > 0
+    );
   };
   const columns = generate2DBracketArray(lastGame);
   // [
@@ -124,6 +136,13 @@ const SingleEliminationBracket = ({
                       columns,
                       previousBottomPosition
                     );
+
+                  const Y =
+                    y +
+                    (roundHeader.isShown
+                      ? roundHeader.height + roundHeader.marginBottom
+                      : 0);
+
                   return (
                     // eslint-disable-next-line react/no-array-index-key
                     <Fragment key={`${match.id}-${columnIndex}-${rowIndex}`}>
@@ -156,13 +175,8 @@ const SingleEliminationBracket = ({
                       )}
                       <g>
                         <MatchWrapper
-                          x={x}
-                          y={
-                            y +
-                            (roundHeader.isShown
-                              ? roundHeader.height + roundHeader.marginBottom
-                              : 0)
-                          }
+                          x={!match.is3rdGame ? x : x + 30}
+                          y={!match.is3rdGame ? Y : Y / 1.55}
                           rowIndex={rowIndex}
                           columnIndex={columnIndex}
                           match={match}
