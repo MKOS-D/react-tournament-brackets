@@ -158,6 +158,7 @@ _For more examples, please refer to the [Storybook][demo-url]_
   ...,
   {
     "id": 260005,
+    "is3rdGame": false, //Default value is 'false' If there is a 3rd place match, is 3ds Game is true and nextMatchId is null.
     "name": "Final - Match",
     "nextMatchId": null, // Id for the nextMatch in the bracket, if it's final match it must be null OR undefined
     "tournamentRoundText": "4", // Text for Round Header
