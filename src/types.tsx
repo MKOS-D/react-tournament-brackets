@@ -18,6 +18,8 @@ export type Participant = {
 export type Match = {
   id: number | string;
 
+  is3rdGame?: boolean;
+
   name?: string;
 
   nextMatchId: string | number | null;
