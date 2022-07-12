@@ -119,8 +119,9 @@ const SingleEliminationBracket = ({
             <g>
               {columns.map((matchesColumn, columnIndex) =>
                 matchesColumn.map((match, rowIndex) => {
+                  const rowIndexCal = match.is3rdGame ? rowIndex - 1 : rowIndex;
                   const { x, y } = calculatePositionOfMatch(
-                    rowIndex,
+                    rowIndexCal,
                     columnIndex,
                     {
                       canvasPadding,
@@ -176,7 +177,7 @@ const SingleEliminationBracket = ({
                       <g>
                         <MatchWrapper
                           x={!match.is3rdGame ? x : x + 30}
-                          y={!match.is3rdGame ? Y : Y / 1.55}
+                          y={!match.is3rdGame ? Y : Y + style.boxHeight + style.spaceBetweenRows}
                           rowIndex={rowIndex}
                           columnIndex={columnIndex}
                           match={match}
