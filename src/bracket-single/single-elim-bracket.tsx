@@ -177,7 +177,11 @@ const SingleEliminationBracket = ({
                       <g>
                         <MatchWrapper
                           x={!match.is3rdGame ? x : x + 30}
-                          y={!match.is3rdGame ? Y : Y + style.boxHeight + style.spaceBetweenRows}
+                          y={
+                            !match.is3rdGame
+                              ? Y
+                              : Y + style.boxHeight + style.spaceBetweenRows
+                          }
                           rowIndex={rowIndex}
                           columnIndex={columnIndex}
                           match={match}
